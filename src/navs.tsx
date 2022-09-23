@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import MainScreen from '@/screens/main'
