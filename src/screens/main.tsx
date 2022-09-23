@@ -1,10 +1,11 @@
 import * as React from 'react'
-import { Container, Text } from '@/atoms'
+import { Container } from '@/atoms'
+import NoteList from '@/atoms/noteList'
 
 const MainScreen = () => {
   return (
     <Container alignItems={'center'} justifyContent={'center'}>
-      <Text>Hello</Text>
+      <NoteList />
     </Container>
   )
 }
