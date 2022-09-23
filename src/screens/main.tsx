@@ -8,6 +8,7 @@ import { DrawerScreenProps } from '@react-navigation/drawer'
 import { HomeDrawerParamList, RootStackParamList } from '@/types/navTypes'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { useStickyHeader } from '@/hooks/useStickyHeader'
+import StatusBar from '@/components/StatusBar'
 
 type MainScreenProps = CompositeScreenProps<
   DrawerScreenProps<HomeDrawerParamList, 'Main'>,
@@ -28,6 +29,7 @@ const MainScreen = ({ navigation }: MainScreenProps) => {
 
   return (
     <Container alignItems={'center'} justifyContent={'center'}>
+      <StatusBar />
       <NoteList onScroll={handleScroll} contentInsetTop={headerBarHeight} />
       <HeaderBar style={headerBarStyle} onLayout={handleNoteListLayout}>
         <TouchableOpacity
