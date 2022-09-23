@@ -1,32 +1,57 @@
-import React, { FC } from 'react'
-import { Box, Text } from '@/atoms'
+import React, { FC, useCallback } from 'react'
+import { Box, Text, TouchableOpacity } from '@/atoms'
 import { Note } from '@/types/modelsTypes'
+import NoteListItemActionView from '@/components/noteListItemActionView'
+import SwipeableView from '@/components/SwipeableView'
 
-interface ListItemProps extends Note {}
+interface ListItemProps extends Note {
+  onPress: (noteId: string) => void
+  onSwipeLeft?: (noteId: string, done: () => void) => void
+}
 
 const NoteListItem: FC<ListItemProps> = props => {
-  return (
-    <Box bg={'$background'}>
-      <Box bg={'$background'} px={'lg'} py={'sm'}>
-        <Text
-          ellipsizeMode={'tail'}
-          numberOfLines={1}
-          fontWeight={'bold'}
-          mb={'xs'}
-        >
-          {props.title}
-        </Text>
+  const { onPress, onSwipeLeft, id } = props
 
-        <Text
-          ellipsizeMode={'tail'}
-          opacity={0.7}
-          numberOfLines={2}
-          fontSize={14}
-        >
-          {props.body}
-        </Text>
+  const handlePress = useCallback(() => {
+    onPress(id)
+  }, [onPress, id])
+  const handleSwipeLeft = useCallback(done => {
+    onSwipeLeft && onSwipeLeft(id, done)
+  }, [])
+
+  const renderBackView = useCallback(
+    ({ progress }) => <NoteListItemActionView progress={progress} />,
+    []
+  )
+
+  return (
+    <SwipeableView
+      bg={'yellow'}
+      onSwipeLeft={handleSwipeLeft}
+      backView={renderBackView}
+    >
+      <Box bg={'$background'}>
+        <TouchableOpacity px={'lg'} py={'sm'} onPress={handlePress}>
+          <Text
+            ellipsizeMode={'tail'}
+            numberOfLines={1}
+            fontWeight={'bold'}
+            mb={'xs'}
+          >
+            {props.title}
+          </Text>
+
+          <Text
+            ellipsizeMode={'tail'}
+            opacity={0.7}
+            numberOfLines={2}
+            fontSize={14}
+          >
+            {props.body}
+          </Text>
+        </TouchableOpacity>
       </Box>
-    </Box>
+    </SwipeableView>
   )
 }
 
