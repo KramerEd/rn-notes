@@ -1,4 +1,4 @@
 import Box from '@/atoms/box'
 import Text from '@/atoms/text'
-
-export { Box, Text }
+import Container from '@/atoms/container'
+export { Box, Text, Container }

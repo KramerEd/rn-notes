@@ -1,11 +1,11 @@
 import * as React from 'react'
-import { Box, Text } from '@/atoms'
+import { Container, Text } from '@/atoms'
 
 const MainScreen = () => {
   return (
-    <Box flex={1} justifyContent={'center'} alignItems={'center'}>
+    <Container alignItems={'center'} justifyContent={'center'}>
       <Text>Hello</Text>
-    </Box>
+    </Container>
   )
 }
 
