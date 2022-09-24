@@ -1,9 +1,7 @@
 import React, { FC } from 'react'
-
 import { SharedValue, useAnimatedStyle } from 'react-native-reanimated'
-import { transform } from '@babel/core'
 import { AnimatedBox, Box } from '@/atoms'
-import FeatherIcon from '@/components/icon'
+import FeatherIcon from './icon'
 
 interface NoteListItemActionViewProps {
   progress: Readonly<SharedValue<number>>
@@ -15,17 +13,19 @@ const NoteListItemActionView: FC<NoteListItemActionViewProps> = ({
   const iconStyle = useAnimatedStyle(() => ({
     transform: [{ scale: progress.value }]
   }))
-
   return (
     <Box
       flex={1}
       bg={'$primary'}
       flexDirection={'row'}
-      justifyContent={'center'}
+      alignItems={'center'}
+      justifyContent={'flex-end'}
+      pr={'xl'}
     >
       <AnimatedBox
         flexDirection={'row'}
         alignItems={'center'}
+        justifyContent={'center'}
         style={iconStyle}
       >
         <FeatherIcon name={'folder'} color={'white'} size={18} />

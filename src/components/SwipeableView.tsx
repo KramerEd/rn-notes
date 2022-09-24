@@ -37,7 +37,7 @@ interface SwipeableViewHandle {
 }
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window')
-const SWIPE_THREASHOLD = -0.2
+const SWIPE_THRESHOLD = -0.2
 
 const SwipeableView = forwardRef<SwipeableViewHandle, SwipeableViewProps>(
   (props, ref) => {
@@ -45,9 +45,8 @@ const SwipeableView = forwardRef<SwipeableViewHandle, SwipeableViewProps>(
       children,
       backView,
       onSwipeLeft,
-      revealed,
       simultaneousHandlers,
-      ...rest
+      ...boxProps
     } = props
     const translateX = useSharedValue(0)
 
@@ -66,16 +65,17 @@ const SwipeableView = forwardRef<SwipeableViewHandle, SwipeableViewProps>(
           translateX.value = Math.max(-1, Math.min(0, x))
         },
         onEnd: () => {
-          const shouldBeDismised = translateX.value < SWIPE_THREASHOLD
-          if (shouldBeDismised) {
+          const shouldBeDismissed = translateX.value < SWIPE_THRESHOLD
+          if (shouldBeDismissed) {
             translateX.value = withTiming(-1)
-            runOnJS(invokeSwipeLeft)
+            runOnJS(invokeSwipeLeft)()
           } else {
             translateX.value = withTiming(0)
           }
         }
       }
     )
+
     const facadeStyle = useAnimatedStyle(() => ({
       transform: [
         {
@@ -83,22 +83,25 @@ const SwipeableView = forwardRef<SwipeableViewHandle, SwipeableViewProps>(
         }
       ]
     }))
+
     const progress = useDerivedValue(() => {
       return interpolate(
-        Math.max(translateX.value, SWIPE_THREASHOLD),
-        [-2, 0],
+        Math.max(translateX.value, SWIPE_THRESHOLD),
+        [-0.2, 0],
         [1, 0]
       )
     })
+
     useImperativeHandle(ref, () => ({
       conceal: () => {
         translateX.value = withTiming(0)
       }
     }))
+
     return (
-      <AnimatedBox {...rest}>
+      <AnimatedBox {...boxProps}>
         {backView && (
-          <Box position={'absolute'} left={0} right={0} top={0} bottom={0}>
+          <Box position="absolute" left={0} right={0} top={0} bottom={0}>
             {typeof backView === 'function' ? backView({ progress }) : backView}
           </Box>
         )}
