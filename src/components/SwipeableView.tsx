@@ -57,7 +57,6 @@ const SwipeableView = forwardRef<SwipeableViewHandle, SwipeableViewProps>(
         })
       }
     }, [onSwipeLeft])
-
     const panGesture = useAnimatedGestureHandler<PanGestureHandlerGestureEvent>(
       {
         onActive: event => {

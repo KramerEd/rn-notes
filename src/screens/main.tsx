@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import { Box, Container, Text, TouchableOpacity } from '@/atoms'
 import NoteList from '@/components/noteList'
 import HeaderBar from '@/components/headerbar'
@@ -9,6 +9,7 @@ import { HomeDrawerParamList, RootStackParamList } from '@/types/navTypes'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { useStickyHeader } from '@/hooks/useStickyHeader'
 import StatusBar from '@/components/StatusBar'
+import MoveNoteSheet from '@/atoms/moveNoteSheet'
 
 type MainScreenProps = CompositeScreenProps<
   DrawerScreenProps<HomeDrawerParamList, 'Main'>,
@@ -16,6 +17,8 @@ type MainScreenProps = CompositeScreenProps<
 >
 
 const MainScreen = ({ navigation }: MainScreenProps) => {
+  const refMoveNoteSheet = useRef<MoveNoteSheet>(null)
+  const [noteListItem, setNoteListItem] = useState<(() => void) | null>(null)
   const {
     handleScroll,
     handleNoteListLayout,
@@ -27,10 +30,33 @@ const MainScreen = ({ navigation }: MainScreenProps) => {
     [navigation]
   )
 
+  const handleNoteListItemPress = useCallback((noteId: string) => {}, [])
+
+  const handleNoteListItemSwipeLeft = useCallback(
+    (_noteId: string, conceal: () => void) => {
+      const { current: menu } = refMoveNoteSheet
+      if (menu) {
+        menu.show()
+        setNoteListItem(() => conceal)
+      }
+    },
+    []
+  )
+
+  const handleMoveNoteSheetClose = useCallback(() => {
+    noteListItem && noteListItem()
+    setNoteListItem(null)
+  }, [noteListItem])
+
   return (
     <Container alignItems={'center'} justifyContent={'center'}>
       <StatusBar />
-      <NoteList onScroll={handleScroll} contentInsetTop={headerBarHeight} />
+      <NoteList
+        onScroll={handleScroll}
+        contentInsetTop={headerBarHeight}
+        onItemPress={handleNoteListItemPress}
+        onItemSwipeLeft={handleNoteListItemSwipeLeft}
+      />
       <HeaderBar style={headerBarStyle} onLayout={handleNoteListLayout}>
         <TouchableOpacity
           m={'xs'}
@@ -47,6 +73,10 @@ const MainScreen = ({ navigation }: MainScreenProps) => {
           <FeatherIcon name={'more-vertical'} size={22} />
         </TouchableOpacity>
       </HeaderBar>
+      <MoveNoteSheet
+        ref={refMoveNoteSheet}
+        onClose={handleMoveNoteSheetClose}
+      />
     </Container>
   )
 }
