@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import MainScreen from '@/screens/main'
 import Sidebar from '@/components/sidebar'
 import { HomeDrawerParamList, RootStackParamList } from '@/types/navTypes'
+import DetailScreen from '@/screens/detail'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 const Drawer = createDrawerNavigator<HomeDrawerParamList>()
@@ -20,6 +21,8 @@ const Home = () => {
         component={MainScreen}
         options={{ headerShown: false }}
       />
+      {/*@ts-ignore*/}
+      <Drawer.Screen name={'Detail'} component={DetailScreen} options={{}} />
     </Drawer.Navigator>
   )
 }

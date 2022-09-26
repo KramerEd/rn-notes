@@ -30,7 +30,11 @@ const MainScreen = ({ navigation }: MainScreenProps) => {
     [navigation]
   )
 
-  const handleNoteListItemPress = useCallback((noteId: string) => {}, [])
+  const handleNoteListItemPress = useCallback((noteId: string) => {
+    navigation.navigate('Detail', {
+      noteId
+    })
+  }, [])
 
   const handleNoteListItemSwipeLeft = useCallback(
     (_noteId: string, conceal: () => void) => {
