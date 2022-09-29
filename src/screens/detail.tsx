@@ -17,7 +17,7 @@ const DetailScreen = ({ navigation, route }: DetailScreenProps) => {
         <Text>Go back</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => navigation.navigate('Form')}
+        onPress={() => navigation.navigate('Form', {})}
         style={{ padding: 12 }}
       >
         <Text fontSize={20}>Go to form</Text>

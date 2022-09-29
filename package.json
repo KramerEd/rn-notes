@@ -26,6 +26,7 @@
     "react-native-screens": "^3.13.1",
     "react-native-svg": "^12.3.0",
     "react-native-vector-icons": "^9.1.0",
+    "react-native-webview": "^11.23.1",
     "shortid": "^2.2.16"
   },
   "devDependencies": {

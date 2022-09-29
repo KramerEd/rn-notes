@@ -6,6 +6,7 @@ import Sidebar from '@/components/sidebar'
 import { HomeDrawerParamList, RootStackParamList } from '@/types/navTypes'
 import DetailScreen from '@/screens/detail'
 import FormScreen from '@/screens/form'
+import WebviewScreen from '@/screens/webview'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 const Drawer = createDrawerNavigator<HomeDrawerParamList>()
@@ -24,6 +25,11 @@ const Home = () => {
       />
       <Stack.Screen name={'Detail'} component={DetailScreen} options={{}} />
       <Stack.Screen name={'Form'} component={FormScreen} options={{}} />
+      <Stack.Screen
+        name={'Webview'}
+        component={WebviewScreen}
+        options={{ headerShown: false }}
+      />
     </Drawer.Navigator>
   )
 }
