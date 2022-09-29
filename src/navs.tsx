@@ -5,6 +5,7 @@ import MainScreen from '@/screens/main'
 import Sidebar from '@/components/sidebar'
 import { HomeDrawerParamList, RootStackParamList } from '@/types/navTypes'
 import DetailScreen from '@/screens/detail'
+import FormScreen from '@/screens/form'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 const Drawer = createDrawerNavigator<HomeDrawerParamList>()
@@ -21,8 +22,8 @@ const Home = () => {
         component={MainScreen}
         options={{ headerShown: false }}
       />
-      {/*@ts-ignore*/}
-      <Drawer.Screen name={'Detail'} component={DetailScreen} options={{}} />
+      <Stack.Screen name={'Detail'} component={DetailScreen} options={{}} />
+      <Stack.Screen name={'Form'} component={FormScreen} options={{}} />
     </Drawer.Navigator>
   )
 }

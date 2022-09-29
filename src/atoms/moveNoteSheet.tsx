@@ -9,7 +9,7 @@ import RNBottomSheet, { BottomSheetBackdrop } from '@gorhom/bottom-sheet'
 import BottomSheet from '@gorhom/bottom-sheet'
 import { Box, Text } from '@/atoms/index'
 import bottomSheet from '@/atoms/bottomSheet'
-import BookList from '@/components/bookList'
+import BookList from '@/components/BookList'
 
 interface MoveNoteSheetProps {
   onClose?: () => void

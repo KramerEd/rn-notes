@@ -15,6 +15,7 @@ const NoteListItem: FC<ListItemProps> = props => {
   const handlePress = useCallback(() => {
     onPress(id)
   }, [onPress, id])
+
   const handleSwipeLeft = useCallback(done => {
     onSwipeLeft && onSwipeLeft(id, done)
   }, [])
@@ -25,11 +26,7 @@ const NoteListItem: FC<ListItemProps> = props => {
   )
 
   return (
-    <SwipeableView
-      bg={'yellow'}
-      onSwipeLeft={handleSwipeLeft}
-      backView={renderBackView}
-    >
+    <SwipeableView onSwipeLeft={handleSwipeLeft} backView={renderBackView}>
       <Box bg={'$background'}>
         <TouchableOpacity px={'lg'} py={'sm'} onPress={handlePress}>
           <Text
@@ -40,7 +37,6 @@ const NoteListItem: FC<ListItemProps> = props => {
           >
             {props.title}
           </Text>
-
           <Text
             ellipsizeMode={'tail'}
             opacity={0.7}

@@ -26,7 +26,6 @@ const BookList: FC<BookListProps> = ({
   const renderItem = useCallback(({ item }) => {
     return <BookListItem {...item} onPress={onPressItem} color={color} />
   }, [])
-
   const ListComponent = inBottomSheet
     ? StyledBottomSheetFlatList
     : StyledFlatList

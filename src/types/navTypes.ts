@@ -5,6 +5,7 @@ export type HomeDrawerParamList = {
 }
 export type RootStackParamList = {
   Home: NavigatorScreenParams<HomeDrawerParamList>
+  Form: {}
   Detail: {
     noteId: string
   }

@@ -44,11 +44,11 @@ export const useStickyHeader = () => {
         let distY = offsetY - anchorY.value
         if (anchorY.value === ANCHOR_INIT) distY = offsetY
 
-        let value =
+        translationY.value =
           offsetY <= -safeAreaInsets.top
             ? maxY
             : Math.max(minY, Math.min(maxY, translationY.value - distY))
-        translationY.value = value
+
         anchorY.value = offsetY
         progressY.value = interpolate(translationY.value, [minY, maxY], [0, 1])
       },
