@@ -1,16 +1,35 @@
 import React from 'react'
-import { Box, Text } from '@/atoms'
 import WebView from 'react-native-webview'
+import { ActivityIndicator, SafeAreaView } from 'react-native'
 
-const WebviewScreen = () => {
+function LoadingIndicatorView() {
+  return <ActivityIndicator color="#009b88" size="large" />
+}
+const runFirst = `
+      document.body.style.backgroundColor = 'green';
+      setTimeout(function() { window.alert(JSON.stringify([
+             'Javascript',
+             'React', 
+             'React Naitve',
+             'graphql',
+             'Typescript',
+             'Webpack',
+             'Node js',
+          ])) }, 1000);
+      true;
+    `
+const WebviewScreen = ({ navigation }) => {
   return (
-    <Box flex={1}>
+    <SafeAreaView style={{ flex: 1 }}>
       <WebView
         source={{
           uri: 'https://github.com/facebook/react-native'
         }}
+        renderLoading={LoadingIndicatorView}
+        startInLoadingState={true}
+        injectedJavaScript={runFirst}
       />
-    </Box>
+    </SafeAreaView>
   )
 }
 
